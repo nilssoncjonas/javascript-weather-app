@@ -13,7 +13,7 @@ const renderAlert = (msg, severity = 'info') => {
 const renderNotice = msg => renderAlert(msg, 'info');
 const renderWarning = msg => renderAlert(msg, 'warning');
 const renderDanger = msg => renderAlert(msg, 'danger');
-
+ 
 const renderCurrentWeather = data => {
 
     const conditions = data.weather.map(condition =>
@@ -65,7 +65,10 @@ document.querySelector('#search-form').addEventListener('submit', async e => {
     if (city.length < 3) {
         alert('Please enter at least 3 characters!')
         return    
-    }   
+    }
+    // localstorage
+    localStorage.setItem('weather_city', city);
+    
 	forecastEl.classList.add('hide');
 	spinnerEl.classList.remove('hide');
 
@@ -81,3 +84,5 @@ document.querySelector('#search-form').addEventListener('submit', async e => {
     spinnerEl.classList.add('hide');
 	forecastEl.classList.remove('hide');
 });
+// set city-input to any previously saved city in localStorage
+document.querySelector('#query').value = localStorage.getItem('weather_city') ?? '';
